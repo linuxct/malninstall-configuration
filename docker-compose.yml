@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  malninstall-configuration:
+    image: malninstallconfiguration:latest
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/Logs:/app/logs
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.malninstall-config.entryPoints=web-secure
+      - traefik.http.routers.malninstall-config.rule=Host(`configuration-malninstall.linuxct.space`)
+      - traefik.http.routers.malninstall-config.tls=true
+      - traefik.http.services.malninstall-config.loadbalancer.server.port=80
