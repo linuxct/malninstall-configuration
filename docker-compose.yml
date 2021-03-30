@@ -9,6 +9,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.malninstall-config.entryPoints=web-secure
-      - traefik.http.routers.malninstall-config.rule=Host(`configuration-malninstall.linuxct.space`)
+      - traefik.http.routers.malninstall-config.rule=Host(`malninstall-configuration.linuxct.space`)
       - traefik.http.routers.malninstall-config.tls=true
       - traefik.http.services.malninstall-config.loadbalancer.server.port=80
