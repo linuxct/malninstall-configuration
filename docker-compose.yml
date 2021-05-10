@@ -22,8 +22,6 @@ services:
   seq-malninstall-backend:
     image: datalust/seq
     restart: unless-stopped
-    volumes:
-      - /raid/containers/descendant/seq/data:/data
     environment:
       - ACCEPT_EULA=Y
     expose:
