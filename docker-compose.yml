@@ -28,8 +28,6 @@ services:
       - ACCEPT_EULA=Y
     expose:
       - "80"
-    networks:
-      - descendant
     labels:
       - traefik.enable=true
       - traefik.http.routers.seq-malninstall.entryPoints=web-secure
