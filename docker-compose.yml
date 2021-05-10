@@ -15,9 +15,9 @@ services:
 
   redis-malninstall-backend:
     image: redis
-      restart: unless-stopped
-      expose:
-        - "6379"
+    restart: unless-stopped
+    expose:
+      - "6379"
 
   seq-malninstall-backend:
     image: datalust/seq
