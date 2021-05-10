@@ -12,3 +12,27 @@ services:
       - traefik.http.routers.malninstall-config.rule=Host(`malninstall-configuration.linuxct.space`)
       - traefik.http.routers.malninstall-config.tls=true
       - traefik.http.services.malninstall-config.loadbalancer.server.port=80
+
+  redis-malninstall-backend:
+    image: redis
+      restart: unless-stopped
+      expose:
+        - "6379"
+
+  seq-malninstall-backend:
+    image: datalust/seq
+    restart: unless-stopped
+    volumes:
+      - /raid/containers/descendant/seq/data:/data
+    environment:
+      - ACCEPT_EULA=Y
+    expose:
+      - "80"
+    networks:
+      - descendant
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.seq-malninstall.entryPoints=web-secure
+      - traefik.http.routers.seq-malninstall.rule=Host(`malninstall-seq.linuxct.space`)
+      - traefik.http.routers.seq-malninstall.middlewares=auth@file
+      - traefik.http.services.seq-malninstall.loadbalancer.server.port=80
