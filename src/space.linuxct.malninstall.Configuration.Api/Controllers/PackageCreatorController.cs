@@ -16,11 +16,11 @@ using space.linuxct.malninstall.Configuration.Common.Helpers.Hcaptcha;
 using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
 using space.linuxct.malninstall.Configuration.Common.Helpers.SafetyNet;
 using space.linuxct.malninstall.Configuration.Common.Models;
-using space.linuxct.malninstall.Configuration.Common.Models.PackageGeneration;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.Common.Models.SafetyNet;
 using space.linuxct.malninstall.Configuration.Services.PackageGeneration;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
+using space.linuxct.malninstall.Configuration.ViewModels.PackageCreator;
 
 namespace space.linuxct.malninstall.Configuration.Controllers
 {
