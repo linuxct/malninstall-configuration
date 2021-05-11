@@ -3,7 +3,6 @@ using System.IO;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +10,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
-using space.linuxct.malninstall.Configuration.Services.PackageGeneration;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services;
+using space.linuxct.malninstall.Configuration.Core.Application.Services;
 
 namespace space.linuxct.malninstall.Configuration
 {

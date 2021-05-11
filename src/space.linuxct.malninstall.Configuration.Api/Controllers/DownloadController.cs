@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using space.linuxct.malninstall.Configuration.Common.Extensions;
 using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
-using space.linuxct.malninstall.Configuration.Common.Models;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
 
