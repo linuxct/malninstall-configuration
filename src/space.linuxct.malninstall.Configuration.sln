@@ -2,6 +2,19 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "space.linuxct.malninstall.Configuration.Api", "space.linuxct.malninstall.Configuration.Api\space.linuxct.malninstall.Configuration.Api.csproj", "{7F3EFD4F-6FAA-4666-A6E0-963BA56BEDF2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution-files", ".solution-files", "{E9876A93-84AD-4E03-93CF-5ADAA40D81D9}"
+ProjectSection(SolutionItems) = preProject
+	Dockerfile = Dockerfile
+	.dockerignore = .dockerignore
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9A353992-7CFC-4BE7-9262-83040597348A}"
+ProjectSection(SolutionItems) = preProject
+	..\scripts\build.sh = ..\scripts\build.sh
+	..\scripts\configure.sh = ..\scripts\configure.sh
+	..\scripts\docker-compose.yml = ..\scripts\docker-compose.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +25,8 @@ Global
 		{7F3EFD4F-6FAA-4666-A6E0-963BA56BEDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3EFD4F-6FAA-4666-A6E0-963BA56BEDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3EFD4F-6FAA-4666-A6E0-963BA56BEDF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A353992-7CFC-4BE7-9262-83040597348A} = {E9876A93-84AD-4E03-93CF-5ADAA40D81D9}
 	EndGlobalSection
 EndGlobal
