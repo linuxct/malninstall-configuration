@@ -77,7 +77,7 @@ namespace space.linuxct.malninstall.Configuration
             app.UseSwagger();
             
             app.UseSwaggerUI(c =>
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "space.linuxct.malninstall.Configuration v1"));
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "space.linuxct.malninstall.Configuration.Api v1"));
 
             app.UseHttpsRedirection();
 
