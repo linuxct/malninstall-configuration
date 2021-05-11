@@ -1,0 +1,13 @@
+# directories
+**/bin/
+**/obj/
+**/out/
+/Downloads/*
+.idea/
+/logs/
+/Logs/
+
+# files
+Dockerfile*
+**/*.md
+launchSettings.json

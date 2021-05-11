@@ -1,0 +1,32 @@
+name: Build & test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.*
+    - name: Restore dependencies
+      working-directory: ./src  
+      run: dotnet restore
+    - name: Build
+      working-directory: ./src
+      run: dotnet build --no-restore
+    - name: Test
+      working-directory: ./src
+      run: dotnet test --no-build --verbosity normal
