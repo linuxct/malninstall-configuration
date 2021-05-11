@@ -3,10 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using space.linuxct.malninstall.Configuration.Extensions;
-using space.linuxct.malninstall.Configuration.Helpers.RateLimit;
-using space.linuxct.malninstall.Configuration.Models;
-using space.linuxct.malninstall.Configuration.Models.Persistence;
+using space.linuxct.malninstall.Configuration.Common.Extensions;
+using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
+using space.linuxct.malninstall.Configuration.Common.Models;
+using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 
 namespace space.linuxct.malninstall.Configuration.Controllers
 {

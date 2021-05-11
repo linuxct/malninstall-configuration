@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using space.linuxct.malninstall.Configuration.Enums;
-using space.linuxct.malninstall.Configuration.Exceptions;
-using space.linuxct.malninstall.Configuration.Helpers.NativeExecutor;
-using space.linuxct.malninstall.Configuration.Helpers.Random;
-using space.linuxct.malninstall.Configuration.Models;
+using space.linuxct.malninstall.Configuration.Common.Enums;
+using space.linuxct.malninstall.Configuration.Common.Exceptions;
+using space.linuxct.malninstall.Configuration.Common.Helpers.NativeExecutor;
+using space.linuxct.malninstall.Configuration.Common.Helpers.Random;
+using space.linuxct.malninstall.Configuration.Common.Models;
 
 namespace space.linuxct.malninstall.Configuration.Services.PackageGeneration
 {

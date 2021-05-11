@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using space.linuxct.malninstall.Configuration.Models;
+using space.linuxct.malninstall.Configuration.Common.Models;
 
 namespace space.linuxct.malninstall.Configuration.Controllers
 {

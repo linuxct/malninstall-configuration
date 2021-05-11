@@ -9,16 +9,16 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using space.linuxct.malninstall.Configuration.Enums;
-using space.linuxct.malninstall.Configuration.Exceptions;
-using space.linuxct.malninstall.Configuration.Extensions;
-using space.linuxct.malninstall.Configuration.Helpers.Hcaptcha;
-using space.linuxct.malninstall.Configuration.Helpers.RateLimit;
-using space.linuxct.malninstall.Configuration.Helpers.SafetyNet;
-using space.linuxct.malninstall.Configuration.Models;
-using space.linuxct.malninstall.Configuration.Models.PackageGeneration;
-using space.linuxct.malninstall.Configuration.Models.Persistence;
-using space.linuxct.malninstall.Configuration.Models.SafetyNet;
+using space.linuxct.malninstall.Configuration.Common.Enums;
+using space.linuxct.malninstall.Configuration.Common.Exceptions;
+using space.linuxct.malninstall.Configuration.Common.Extensions;
+using space.linuxct.malninstall.Configuration.Common.Helpers.Hcaptcha;
+using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
+using space.linuxct.malninstall.Configuration.Common.Helpers.SafetyNet;
+using space.linuxct.malninstall.Configuration.Common.Models;
+using space.linuxct.malninstall.Configuration.Common.Models.PackageGeneration;
+using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
+using space.linuxct.malninstall.Configuration.Common.Models.SafetyNet;
 using space.linuxct.malninstall.Configuration.Services.PackageGeneration;
 
 namespace space.linuxct.malninstall.Configuration.Controllers

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using space.linuxct.malninstall.Configuration.Models;
+using space.linuxct.malninstall.Configuration.Common.Models;
 
 namespace space.linuxct.malninstall.Configuration.Services.PackageGeneration
 {
