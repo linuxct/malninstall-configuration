@@ -17,4 +17,4 @@ COPY --from=build-env /app/out .
 COPY configure.sh ./
 RUN bash configure.sh
 EXPOSE 80 443
-ENTRYPOINT ["dotnet", "space.linuxct.malninstall.Configuration.dll"]
+ENTRYPOINT ["dotnet", "space.linuxct.malninstall.Configuration.Api.dll"]
