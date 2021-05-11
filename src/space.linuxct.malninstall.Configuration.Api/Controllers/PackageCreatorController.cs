@@ -43,10 +43,10 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         
         [HttpPost]
         [ProducesResponseType(typeof(GeneratePackageResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BasicResponseViewModel), StatusCodes.Status400BadRequest)] //Error ParametersInvalid
-        [ProducesResponseType(typeof(BasicResponseViewModel),StatusCodes.Status403Forbidden)] //Error TooManyCalls
-        [ProducesResponseType(typeof(BasicResponseViewModel),StatusCodes.Status412PreconditionFailed)] //Error InvalidSignatureException, Error NotValidPackageName
-        [ProducesResponseType(typeof(BasicResponseViewModel),StatusCodes.Status500InternalServerError)] //Error PackageGenerationError
+        [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status400BadRequest)] //Error ParametersInvalid
+        [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status403Forbidden)] //Error TooManyCalls
+        [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error InvalidSignatureException, Error NotValidPackageName
+        [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status500InternalServerError)] //Error PackageGenerationError
         public async Task<IActionResult> GeneratePackage(GeneratePackageRequest req)
         {
             //Validate required input parameters are supplied
@@ -54,7 +54,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                 req.EntryChannel == EntryChannelEnum.Web && string.IsNullOrWhiteSpace(req.HcaptchaClientResponse) ||
                 req.EntryChannel == EntryChannelEnum.Application && string.IsNullOrWhiteSpace(req.SafetyNetJwt))
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "Invalid parameters." }) { StatusCode = StatusCodes.Status400BadRequest };
+                return new JsonResult(new BasicResponse { Message = "Invalid parameters." }) { StatusCode = StatusCodes.Status400BadRequest };
             }
             
             //Get static data from API call via CF
@@ -64,7 +64,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
             if (rateLimitHelper.IsClientRateLimited())
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
+                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }
             
             //Verify the token with the SN or Hcaptcha helpers
@@ -96,7 +96,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
 
             if (!channelValidationMethodResult)
             {
-                return new JsonResult(new BasicResponseViewModel 
+                return new JsonResult(new BasicResponse 
                     { 
                         Message = string.IsNullOrWhiteSpace(channelValidationMethodErrorMessage) ? 
                             "Error while processing the preconditions" : 
@@ -107,7 +107,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             //Check the package name is a valid package name (contains only strings and periods, with regex), return 412
             if (!req.PackageName.IsValidPackageName())
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "Package name supplied is not valid." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
+                return new JsonResult(new BasicResponse { Message = "Package name supplied is not valid." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
             }
             
             //Generate the package
@@ -131,12 +131,12 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                 });
             }
             
-            return new JsonResult(new BasicResponseViewModel { Message = "The package was not generated, please try again." }) { StatusCode = StatusCodes.Status500InternalServerError };
+            return new JsonResult(new BasicResponse { Message = "The package was not generated, please try again." }) { StatusCode = StatusCodes.Status500InternalServerError };
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(NonceResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BasicResponseViewModel), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
+        [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
         public IActionResult GenerateNonce()
         {
             //Get static data from API call via CF
@@ -144,7 +144,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
             if (rateLimitHelper.IsClientRateLimited())
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
+                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }
 
             //Generate 16 byte random and pass static CF data as seed

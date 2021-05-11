@@ -23,22 +23,22 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         
         [HttpGet]
         [ProducesResponseType(typeof(File), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BasicResponseViewModel), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
-        [ProducesResponseType(typeof(BasicResponseViewModel),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound
+        [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
+        [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound
         public IActionResult GetTool(string guid)
         {
             //Find number of calls from this IP in Redis, block if needed
             var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
             if (rateLimitHelper.IsClientRateLimited())
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
+                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }
 
             var downloadContents = _distributedCache.GetObject<DownloadContentsModel>(guid);
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
             if (downloadContents == null || !System.IO.File.Exists(downloadContents.FilePath) || downloadContents.ConnectionIdentifierHash != connectionIdentifierHash)
             {
-                return new JsonResult(new BasicResponseViewModel { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
+                return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
             }
 
             var downloadLocation = downloadContents.FilePath.Split("/").ToList();
