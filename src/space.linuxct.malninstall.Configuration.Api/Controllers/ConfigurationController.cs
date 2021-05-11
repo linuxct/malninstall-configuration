@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using space.linuxct.malninstall.Configuration.Common.Models;
+using space.linuxct.malninstall.Configuration.ViewModels.Configuration;
 
 namespace space.linuxct.malninstall.Configuration.Controllers
 {
@@ -13,9 +10,9 @@ namespace space.linuxct.malninstall.Configuration.Controllers
     public class ConfigurationController : ControllerBase
     {
         [HttpGet]
-        public MalwarePackagesModel GetPackageNames()
+        public IActionResult GetPackageNames()
         {
-            return new()
+            return Ok(new MalwarePackagesViewModel()
             {
                 PackageNameList = new List<string>
                 {
@@ -27,7 +24,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                     "com.eg.android.AlipayGphone"
                 },
                 LastUpdateDate = new DateTime(2021, 03, 21, 22, 00, 00)
-            };
+            });
         }
     }
 }
