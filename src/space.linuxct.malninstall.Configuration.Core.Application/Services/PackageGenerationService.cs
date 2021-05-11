@@ -11,8 +11,10 @@ using space.linuxct.malninstall.Configuration.Common.Exceptions;
 using space.linuxct.malninstall.Configuration.Common.Helpers.NativeExecutor;
 using space.linuxct.malninstall.Configuration.Common.Helpers.Random;
 using space.linuxct.malninstall.Configuration.Common.Models;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Models;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services;
 
-namespace space.linuxct.malninstall.Configuration.Services.PackageGeneration
+namespace space.linuxct.malninstall.Configuration.Core.Application.Services
 {
     public class PackageGenerationService : IPackageGenerationService
     {

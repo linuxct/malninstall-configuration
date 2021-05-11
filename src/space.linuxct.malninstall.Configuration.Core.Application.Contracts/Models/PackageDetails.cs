@@ -1,7 +1,7 @@
 using System;
 using space.linuxct.malninstall.Configuration.Common.Enums;
 
-namespace space.linuxct.malninstall.Configuration.Common.Models
+namespace space.linuxct.malninstall.Configuration.Core.Application.Contracts.Models
 {
     [Serializable]
     public class PackageDetails

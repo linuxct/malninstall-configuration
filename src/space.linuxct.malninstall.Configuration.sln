@@ -21,6 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B53AC7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "space.linuxct.malninstall.Configuration.Common", "space.linuxct.malninstall.Configuration.Common\space.linuxct.malninstall.Configuration.Common.csproj", "{6DD58F0E-C608-45B4-BAA2-D013DAC08646}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{89962877-8441-45C1-82AA-49373072808A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "space.linuxct.malninstall.Configuration.Core.Application", "space.linuxct.malninstall.Configuration.Core.Application\space.linuxct.malninstall.Configuration.Core.Application.csproj", "{38B92B11-CF8D-488B-947F-2C9634A54456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "space.linuxct.malninstall.Configuration.Core.Application.Contracts", "space.linuxct.malninstall.Configuration.Core.Application.Contracts\space.linuxct.malninstall.Configuration.Core.Application.Contracts.csproj", "{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +41,20 @@ Global
 		{6DD58F0E-C608-45B4-BAA2-D013DAC08646}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DD58F0E-C608-45B4-BAA2-D013DAC08646}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DD58F0E-C608-45B4-BAA2-D013DAC08646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B92B11-CF8D-488B-947F-2C9634A54456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B92B11-CF8D-488B-947F-2C9634A54456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B92B11-CF8D-488B-947F-2C9634A54456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B92B11-CF8D-488B-947F-2C9634A54456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9A353992-7CFC-4BE7-9262-83040597348A} = {E9876A93-84AD-4E03-93CF-5ADAA40D81D9}
 		{7F3EFD4F-6FAA-4666-A6E0-963BA56BEDF2} = {6340AB50-D54D-4A64-A5A0-8AA8DB302F37}
 		{6DD58F0E-C608-45B4-BAA2-D013DAC08646} = {B53AC73C-B0A0-48D0-BB01-7E9B2C8AE353}
+		{38B92B11-CF8D-488B-947F-2C9634A54456} = {89962877-8441-45C1-82AA-49373072808A}
+		{E6E42D1B-DAB2-4B81-9CFF-7BC1AD513DF4} = {89962877-8441-45C1-82AA-49373072808A}
 	EndGlobalSection
 EndGlobal

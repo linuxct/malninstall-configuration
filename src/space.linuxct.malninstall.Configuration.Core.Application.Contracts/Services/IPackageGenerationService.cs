@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using space.linuxct.malninstall.Configuration.Common.Models;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Models;
 
-namespace space.linuxct.malninstall.Configuration.Services.PackageGeneration
+namespace space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services
 {
     public interface IPackageGenerationService
     {
