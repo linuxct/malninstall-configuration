@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  malninstall-configuration:
+    image: malninstallconfiguration:latest
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/Logs:/app/logs
+      - ${PWD}/Downloads:/home/malninstall/files/Downloads
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.malninstall-config.entryPoints=web-secure
+      - traefik.http.routers.malninstall-config.rule=Host(`malninstall-configuration.linuxct.space`)
+      - traefik.http.routers.malninstall-config.tls=true
+      - traefik.http.services.malninstall-config.loadbalancer.server.port=80
+
+  redis-malninstall-backend:
+    image: redis
+    restart: unless-stopped
+    expose:
+      - "6379"
+
+  seq-malninstall-backend:
+    image: datalust/seq
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    expose:
+      - "80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.seq-malninstall.entryPoints=web-secure
+      - traefik.http.routers.seq-malninstall.rule=Host(`malninstall-seq.linuxct.space`)
+      - traefik.http.routers.seq-malninstall.middlewares=auth@file
+      - traefik.http.services.seq-malninstall.loadbalancer.server.port=80
