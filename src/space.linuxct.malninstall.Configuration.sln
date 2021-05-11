@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9A35
 ProjectSection(SolutionItems) = preProject
 	..\scripts\build.sh = ..\scripts\build.sh
 	..\src\configure.sh = ..\src\configure.sh
+	..\scripts\.external-config = ..\scripts\.external-config
+	..\scripts\.external-config-sample = ..\scripts\.external-config-sample
 	..\scripts\docker-compose.yml = ..\scripts\docker-compose.yml
 EndProjectSection
 EndProject

@@ -335,5 +335,5 @@ riderModule.iml
 /_ReSharper.Caches/
 /logs/
 /Logs/
-.env
-/Downloads/*
+/Downloads/
+.external-config

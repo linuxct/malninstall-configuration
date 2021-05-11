@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export DICTIONARY_MODEL="{\"Actions\": [string, string, ...], \"Connectors\": [string, string, ...], \"Endings\": [string, string, ...] }"
+export DICTIONARY="Please fill a word dictionary!"  # Remember to rename this file to .external-config as well
+sed -i -e "s/\"#{DICTIONARY}#\"/$DICTIONARY/g" ../src/space.linuxct.malninstall.Configuration.Api/appsettings.json
+
+export HCAPTCHA_TOKEN="Please fill an HCaptcha Secret!"
+sed -i -e "s/#{HCAPTCHA_SECRET}#/$HCAPTCHA_TOKEN/g" ../src/space.linuxct.malninstall.Configuration.Api/appsettings.json
