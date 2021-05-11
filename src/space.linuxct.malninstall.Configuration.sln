@@ -6,12 +6,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution-files", ".solutio
 ProjectSection(SolutionItems) = preProject
 	Dockerfile = Dockerfile
 	.dockerignore = .dockerignore
+	..\README.md = ..\README.md
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9A353992-7CFC-4BE7-9262-83040597348A}"
 ProjectSection(SolutionItems) = preProject
 	..\scripts\build.sh = ..\scripts\build.sh
-	..\scripts\configure.sh = ..\scripts\configure.sh
+	..\src\configure.sh = ..\src\configure.sh
 	..\scripts\docker-compose.yml = ..\scripts\docker-compose.yml
 EndProjectSection
 EndProject

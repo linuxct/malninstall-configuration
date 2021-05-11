@@ -5,8 +5,8 @@ services:
     image: malninstallconfiguration:latest
     restart: unless-stopped
     volumes:
-      - ${PWD}/Logs:/app/logs
-      - ${PWD}/Downloads:/home/malninstall/files/Downloads
+      - /raid/containers/malninstall/logs-backend:/app/logs
+      - /raid/containers/malninstall/downloads:/home/malninstall/files/Downloads
     labels:
       - traefik.enable=true
       - traefik.http.routers.malninstall-config.entryPoints=web-secure
