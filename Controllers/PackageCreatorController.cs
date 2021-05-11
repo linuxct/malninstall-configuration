@@ -30,7 +30,6 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         private readonly ILogger<PackageCreatorController> _logger;
         private readonly IPackageGenerationService _packageGenerationService;
         private readonly IDistributedCache _distributedCache;
-        private readonly RateLimitHelper _rateLimitHelper;
         private readonly IConfiguration _configuration;
         
         public PackageCreatorController(ILogger<PackageCreatorController> logger, IPackageGenerationService packageGenerationService, IDistributedCache distributedCache, IConfiguration configuration)
@@ -39,7 +38,6 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             _packageGenerationService = packageGenerationService;
             _configuration = configuration;
             _distributedCache = distributedCache;
-            _rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
         }
         
         [HttpPost]
@@ -62,7 +60,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
             
             //Find number of calls from this IP in Redis, block if needed
-            if (_rateLimitHelper.IsClientRateLimited())
+            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
+            if (rateLimitHelper.IsClientRateLimited())
             {
                 return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }
@@ -141,7 +140,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         {
             //Get static data from API call via CF
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
-            if (_rateLimitHelper.IsClientRateLimited())
+            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
+            if (rateLimitHelper.IsClientRateLimited())
             {
                 return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }

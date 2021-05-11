@@ -15,11 +15,9 @@ namespace space.linuxct.malninstall.Configuration.Controllers
     public class DownloadController : ControllerBase
     {
         private readonly IDistributedCache _distributedCache;
-        private readonly RateLimitHelper _rateLimitHelper;
         public DownloadController(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
-            _rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
         }
         
         [HttpGet]
@@ -29,7 +27,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         public IActionResult GetTool(string guid)
         {
             //Find number of calls from this IP in Redis, block if needed
-            if (_rateLimitHelper.IsClientRateLimited())
+            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
+            if (rateLimitHelper.IsClientRateLimited())
             {
                 return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
             }
