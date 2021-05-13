@@ -31,6 +31,7 @@ namespace space.linuxct.malninstall.Configuration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services
                 .AddControllers(options =>
                 {
@@ -83,6 +84,8 @@ namespace space.linuxct.malninstall.Configuration
                 app.UseDeveloperExceptionPage();
             }
             
+            app.UseCors(options => options.WithOrigins("https://malninstall.linuxct.space").AllowAnyMethod());
+
             app.UseSwagger();
             
             app.UseSwaggerUI(c =>
