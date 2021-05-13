@@ -37,6 +37,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         }
         
         [HttpPost]
+        [HttpOptions]
         [ProducesResponseType(typeof(GeneratePackageResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status400BadRequest)] //Error ParametersInvalid
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status403Forbidden)] //Error TooManyCalls
