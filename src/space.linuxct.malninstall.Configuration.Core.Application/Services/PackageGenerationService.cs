@@ -188,7 +188,8 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Services
             return new PackageDetails
             {
                 Status = status,
-                FileLocation = resultFileLocation
+                FileLocation = resultFileLocation,
+                ApplicationName = $"{_applicationName ?? _packageName}.apk"
             };
         }
     }

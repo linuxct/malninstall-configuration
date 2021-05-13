@@ -126,7 +126,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                 {
                     GenerationStatusCode = PackageServeStatus.Ready,
                     DownloadUrl = Url.Action("GetTool", "Download", new {guid = downloadKey}),
-                    FileName = downloadContents.FilePath.Split('/').LastOrDefault()
+                    FileName = result.ApplicationName
                 });
             }
             

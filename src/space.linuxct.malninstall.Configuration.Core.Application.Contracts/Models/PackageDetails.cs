@@ -8,5 +8,6 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Contracts.Mod
     {
         public PackageCreationStatus Status { get; set; }
         public string FileLocation { get; set; }
+        public string ApplicationName { get; set; }
     }
 }
