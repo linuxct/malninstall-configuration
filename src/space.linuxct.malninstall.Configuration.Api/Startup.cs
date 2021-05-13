@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,15 @@ namespace space.linuxct.malninstall.Configuration
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers()
+                .AddControllers(options =>
+                {
+                    options.AllowEmptyInputInBodyModelBinding = true;
+                    foreach (var formatter in options.InputFormatters)
+                    {
+                        if (formatter.GetType() == typeof(SystemTextJsonInputFormatter))
+                            ((SystemTextJsonInputFormatter)formatter).SupportedMediaTypes.Add(Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/plain"));
+                    }
+                })
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
