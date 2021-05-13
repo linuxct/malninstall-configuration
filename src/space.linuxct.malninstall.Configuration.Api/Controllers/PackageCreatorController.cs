@@ -36,6 +36,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             _distributedCache = distributedCache;
         }
         
+        [HttpGet]
         [HttpPost]
         [HttpOptions]
         [ProducesResponseType(typeof(GeneratePackageResponse), StatusCodes.Status200OK)]
@@ -170,7 +171,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         
         private bool DetectWebOptionsCall()
         {
-            return Request.Method == "OPTIONS";
+            return Request.Method.ToUpper().Contains("OPTIONS") || Request.Method.ToUpper().Contains("GET");
         }
     }
 }
