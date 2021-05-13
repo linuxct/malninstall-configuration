@@ -333,7 +333,7 @@ ASALocalRun/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
-/logs/
-/Logs/
+logs/
+Logs/
 /Downloads/
 .external-config
