@@ -8,5 +8,6 @@ namespace space.linuxct.malninstall.Configuration.ViewModels.PackageCreator
     {
         public PackageServeStatus GenerationStatusCode { get; set; }
         public string DownloadUrl { get; set; }
+        public string FileName { get; set; }
     }
 }

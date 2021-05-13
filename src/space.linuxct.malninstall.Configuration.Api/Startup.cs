@@ -39,8 +39,7 @@ namespace space.linuxct.malninstall.Configuration
                         builder.WithOrigins("https://*.linuxct.space", "http://*.linuxct.space")
                             .SetIsOriginAllowedToAllowWildcardSubdomains()
                             .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .WithExposedHeaders("Content-Disposition");
+                            .AllowAnyMethod();
                     });
             });
             

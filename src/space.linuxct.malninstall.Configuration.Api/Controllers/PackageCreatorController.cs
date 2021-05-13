@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -124,7 +125,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                 return new JsonResult(new GeneratePackageResponse
                 {
                     GenerationStatusCode = PackageServeStatus.Ready,
-                    DownloadUrl = Url.Action("GetTool", "Download", new {guid = downloadKey})
+                    DownloadUrl = Url.Action("GetTool", "Download", new {guid = downloadKey}),
+                    FileName = downloadContents.FilePath.Split('/').LastOrDefault()
                 });
             }
             
