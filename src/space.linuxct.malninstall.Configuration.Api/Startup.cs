@@ -31,26 +31,28 @@ namespace space.linuxct.malninstall.Configuration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-            services
-                .AddControllers(options =>
-                {
-                    options.AllowEmptyInputInBodyModelBinding = true;
-                    foreach (var formatter in options.InputFormatters)
+            services.AddCors(options =>
+            {
+                options.AddPolicy("FrontEndPolicy",
+                    builder =>
                     {
-                        if (formatter.GetType() == typeof(SystemTextJsonInputFormatter))
-                            ((SystemTextJsonInputFormatter)formatter).SupportedMediaTypes.Add(Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/plain"));
-                    }
-                })
+                        builder.WithOrigins("https://*.linuxct.space", "http://*.linuxct.space")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+            
+            services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "Malninstall Configuration Service", 
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Malninstall Configuration Service",
                     Version = "v1",
                     Contact = new OpenApiContact
                     {
@@ -72,7 +74,7 @@ namespace space.linuxct.malninstall.Configuration
                 options.Configuration = "redis-malninstall-backend:6379";
                 options.InstanceName = "";
             });
-            
+
             services.AddScoped<IPackageGenerationService, PackageGenerationService>();
         }
 
@@ -83,25 +85,25 @@ namespace space.linuxct.malninstall.Configuration
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            app.UseCors(options => options.WithOrigins("https://malninstall.linuxct.space").AllowAnyMethod());
 
             app.UseSwagger();
-            
+
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "space.linuxct.malninstall.Configuration.Api v1"));
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors();
 
             app.UseAuthorization();
-            
+
             app.UseSerilogRequestLogging();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-        
+
         private void CreateILoggerConfiguration()
         {
             Log.Logger = new LoggerConfiguration()
@@ -110,21 +112,20 @@ namespace space.linuxct.malninstall.Configuration
                 .WriteTo.Logger(lc => lc.Filter
                     .ByIncludingOnly(e => e.Level == LogEventLevel.Information || e.Level == LogEventLevel.Debug)
                     .WriteTo.File(
-                        new RenderedCompactJsonFormatter(), 
-                        Path.Combine(HostEnvironment.ContentRootPath, "logs/applog.ndjson"), 
+                        new RenderedCompactJsonFormatter(),
+                        Path.Combine(HostEnvironment.ContentRootPath, "logs/applog.ndjson"),
                         rollingInterval: RollingInterval.Day,
                         retainedFileCountLimit: 7,
                         shared: true))
                 .WriteTo.Logger(lc => lc.Filter
                     .ByIncludingOnly(e => e.Level == LogEventLevel.Error)
-                    .WriteTo.File(new RenderedCompactJsonFormatter(), 
-                        Path.Combine(HostEnvironment.ContentRootPath, "logs/errorlog.ndjson"), 
+                    .WriteTo.File(new RenderedCompactJsonFormatter(),
+                        Path.Combine(HostEnvironment.ContentRootPath, "logs/errorlog.ndjson"),
                         rollingInterval: RollingInterval.Day,
                         retainedFileCountLimit: 7,
                         shared: true))
                 .WriteTo.Seq("http://seq-malninstall-backend")
                 .CreateLogger();
         }
-
     }
 }

@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -21,6 +22,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         }
         
         [HttpGet]
+        [EnableCors("FrontEndPolicy")]
         [ProducesResponseType(typeof(File), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound

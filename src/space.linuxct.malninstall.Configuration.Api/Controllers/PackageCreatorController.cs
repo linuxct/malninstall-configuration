@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -37,6 +38,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         }
         
         [HttpPost]
+        [EnableCors("FrontEndPolicy")]
         [ProducesResponseType(typeof(GeneratePackageResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status400BadRequest)] //Error ParametersInvalid
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status403Forbidden)] //Error TooManyCalls
