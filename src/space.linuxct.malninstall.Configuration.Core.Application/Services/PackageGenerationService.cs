@@ -195,7 +195,8 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Services
 
         private string GetApplicationNameFromDisk()
         {
-            return File.ReadAllText(Path.Combine(ToolsBasePath, "Downloads", _packageName, "ServeName"));
+            var serveNameFilePath = Path.Combine(ToolsBasePath, "Downloads", _packageName, "ServeName");
+            return File.Exists(serveNameFilePath) ? File.ReadAllText(serveNameFilePath) : null;
         }
     }
 }
