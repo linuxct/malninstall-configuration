@@ -69,7 +69,7 @@ namespace space.linuxct.malninstall.Configuration
                     Description = "WebApi created in order to supply configuration to the Mobile and Web clients",
                     License = new OpenApiLicense
                     {
-                        Name = "Open Source //ToDo",
+                        Name = "GNU Affero General Public License v3.0",
                         Url = new Uri("https://github.com/linuxct/malninstall-configuration")
                     }
                 });
