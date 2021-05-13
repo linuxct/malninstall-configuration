@@ -44,6 +44,12 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status500InternalServerError)] //Error PackageGenerationError
         public async Task<IActionResult> GeneratePackage(GeneratePackageRequest req)
         {
+            AddHeadersToResponse();
+            if (DetectWebOptionsCall())
+            {
+                return Ok();
+            }
+            
             //Validate required input parameters are supplied
             if (string.IsNullOrWhiteSpace(req.PackageName) ||
                 req.EntryChannel == EntryChannelEnum.Web && string.IsNullOrWhiteSpace(req.HcaptchaClientResponse) ||
@@ -152,6 +158,18 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             var hashedRandom = bArr.ToSha256();
             _distributedCache.SetTimedObject(hashedRandom, result, 1);
             return new JsonResult(result);
+        }
+
+        private void AddHeadersToResponse()
+        {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            Response.Headers.Add("Access-Control-Allow-Methods", "POST, OPTIONS");
+            Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        }
+        
+        private bool DetectWebOptionsCall()
+        {
+            return Request.Method == "OPTIONS";
         }
     }
 }
