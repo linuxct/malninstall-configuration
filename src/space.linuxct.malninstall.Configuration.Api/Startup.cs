@@ -1,11 +1,14 @@
 using System;
 using System.IO;
 using System.Text.Json.Serialization;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -42,12 +45,15 @@ namespace space.linuxct.malninstall.Configuration
                             .AllowAnyMethod();
                     });
             });
+
+            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
             
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -69,12 +75,26 @@ namespace space.linuxct.malninstall.Configuration
                 });
             });
 
-            services.AddDistributedRedisCache(options =>
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
-                options.Configuration = "redis-malninstall-backend:6379";
-                options.InstanceName = "";
-            });
-
+                services.AddDistributedRedisCache(options =>
+                {
+                    options.Configuration = "redis-malninstall-backend:6379";
+                    options.InstanceName = "";
+                });
+                services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>();
+                services.AddSingleton<IRateLimitCounterStore,DistributedCacheRateLimitCounterStore>(); 
+            }
+            else
+            {
+                services.AddMemoryCache();
+                services.AddDistributedMemoryCache();
+                services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+                services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            }
+            
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IPackageGenerationService, PackageGenerationService>();
         }
 
@@ -92,6 +112,8 @@ namespace space.linuxct.malninstall.Configuration
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "space.linuxct.malninstall.Configuration.Api v1"));
 
             app.UseHttpsRedirection();
+
+            app.UseIpRateLimiting();
 
             app.UseRouting();
             

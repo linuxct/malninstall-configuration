@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using space.linuxct.malninstall.Configuration.Common.Extensions;
-using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
 
@@ -24,17 +23,9 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         [HttpGet]
         [EnableCors("FrontEndPolicy")]
         [ProducesResponseType(typeof(File), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status403Forbidden)] //Error TooManyCallsException
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound
         public IActionResult GetTool(string guid)
         {
-            //Find number of calls from this IP in Redis, block if needed
-            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
-            if (rateLimitHelper.IsClientRateLimited())
-            {
-                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
-            }
-
             var downloadContents = _distributedCache.GetObject<DownloadContentsModel>(guid);
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
             if (downloadContents == null || !System.IO.File.Exists(downloadContents.FilePath) || downloadContents.ConnectionIdentifierHash != connectionIdentifierHash)

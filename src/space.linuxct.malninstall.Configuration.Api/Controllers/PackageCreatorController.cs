@@ -11,7 +11,6 @@ using space.linuxct.malninstall.Configuration.Common.Enums;
 using space.linuxct.malninstall.Configuration.Common.Exceptions;
 using space.linuxct.malninstall.Configuration.Common.Extensions;
 using space.linuxct.malninstall.Configuration.Common.Helpers.Hcaptcha;
-using space.linuxct.malninstall.Configuration.Common.Helpers.RateLimit;
 using space.linuxct.malninstall.Configuration.Common.Helpers.SafetyNet;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.Common.Models.SafetyNet;
@@ -42,7 +41,6 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         [EnableCors("FrontEndPolicy")]
         [ProducesResponseType(typeof(GeneratePackageResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BasicResponse), StatusCodes.Status400BadRequest)] //Error ParametersInvalid
-        [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status403Forbidden)] //Error TooManyCalls
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error InvalidSignatureException, Error NotValidPackageName
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status500InternalServerError)] //Error PackageGenerationError
         public async Task<IActionResult> GeneratePackage(GeneratePackageRequest req)
@@ -57,14 +55,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             
             //Get static data from API call via CF
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
-            
-            //Find number of calls from this IP in Redis, block if needed
-            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
-            if (rateLimitHelper.IsClientRateLimited())
-            {
-                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
-            }
-            
+
             //Verify the token with the SN or Hcaptcha helpers
             var channelValidationMethodResult = false;
             var channelValidationMethodErrorMessage = string.Empty;
@@ -140,11 +131,6 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         {
             //Get static data from API call via CF
             var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
-            var rateLimitHelper = new RateLimitHelper(HttpContext, _distributedCache);
-            if (rateLimitHelper.IsClientRateLimited())
-            {
-                return new JsonResult(new BasicResponse { Message = "Too many calls, try again later." }) { StatusCode = StatusCodes.Status403Forbidden };
-            }
 
             //Generate 16 byte random and pass static CF data as seed
             var random = new Random();
