@@ -5,6 +5,6 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Contracts.Ser
     public interface IDownloadLogicService
     {
         public bool RequestIsValid(string guid);
-        public StoredFileContentDetails GetFilePathForGuid(string guid);
+        public StoredFileContentDetails GetStoredFileDataForGuid(string guid);
     }
 }

@@ -32,7 +32,7 @@ namespace space.linuxct.malninstall.Configuration.Controllers
                 return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
             }
 
-            var result = _downloadService.GetFilePathForGuid(guid);
+            var result = _downloadService.GetStoredFileDataForGuid(guid);
             
             return PhysicalFile(result.FilePath, "application/vnd.android.package-archive", result.ServeName);
         }

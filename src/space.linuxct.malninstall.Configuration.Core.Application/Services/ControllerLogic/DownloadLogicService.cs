@@ -27,7 +27,7 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Services.Cont
             return downloadContents != null && System.IO.File.Exists(downloadContents.FilePath) && downloadContents.ConnectionIdentifierHash == connectionIdentifierHash;
         }
 
-        public StoredFileContentDetails GetFilePathForGuid(string guid)
+        public StoredFileContentDetails GetStoredFileDataForGuid(string guid)
         {
             var result = new StoredFileContentDetails();
             var downloadContents = _distributedCache.GetObject<DownloadContentsModel>(guid);
