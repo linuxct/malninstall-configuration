@@ -14,7 +14,7 @@ using space.linuxct.malninstall.Configuration.Common.Helpers.Hcaptcha;
 using space.linuxct.malninstall.Configuration.Common.Helpers.SafetyNet;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.Common.Models.SafetyNet;
-using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.PackageGenerationLogic;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
 using space.linuxct.malninstall.Configuration.ViewModels.PackageCreator;
 

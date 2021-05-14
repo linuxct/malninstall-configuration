@@ -14,8 +14,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
-using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services;
-using space.linuxct.malninstall.Configuration.Core.Application.Services;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.PackageGenerationLogic;
+using space.linuxct.malninstall.Configuration.Core.Application.Services.PackageGenerationLogic;
 
 namespace space.linuxct.malninstall.Configuration
 {
