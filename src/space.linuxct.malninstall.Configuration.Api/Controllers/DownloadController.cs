@@ -1,11 +1,9 @@
 using System.IO;
-using System.Linq;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
-using space.linuxct.malninstall.Configuration.Common.Extensions;
-using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
+using Microsoft.Extensions.Logging;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.ControllerLogic;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
 
 namespace space.linuxct.malninstall.Configuration.Controllers
@@ -14,10 +12,12 @@ namespace space.linuxct.malninstall.Configuration.Controllers
     [Route("[controller]/[action]")]
     public class DownloadController : ControllerBase
     {
-        private readonly IDistributedCache _distributedCache;
-        public DownloadController(IDistributedCache distributedCache)
+        private readonly IDownloadLogicService _downloadService;
+        private readonly ILogger<DownloadController> _logger;
+        public DownloadController(IDownloadLogicService downloadService, ILogger<DownloadController> logger)
         {
-            _distributedCache = distributedCache;
+            _downloadService = downloadService;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -26,24 +26,15 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound
         public IActionResult GetTool(string guid)
         {
-            var downloadContents = _distributedCache.GetObject<DownloadContentsModel>(guid);
-            var connectionIdentifierHash = HttpContext.GetRemoteIPAddress().ToString().ToSha256();
-            if (downloadContents == null || !System.IO.File.Exists(downloadContents.FilePath) || downloadContents.ConnectionIdentifierHash != connectionIdentifierHash)
+
+            if (!_downloadService.RequestIsValid(guid))
             {
                 return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
             }
 
-            var downloadLocation = downloadContents.FilePath.Split("/").ToList();
-            var serveName = downloadLocation.ElementAt(downloadLocation.Count - 1);
-            downloadLocation.RemoveAt(downloadLocation.Count - 1);
-            var downloadLocationPath = string.Join("/", downloadLocation);
-            var serveNamePath = Path.Combine(downloadLocationPath, "ServeName");
-            if (System.IO.File.Exists(serveNamePath))
-            {
-                serveName = System.IO.File.ReadAllText(serveNamePath);
-            }
+            var result = _downloadService.GetFilePathForGuid(guid);
             
-            return PhysicalFile(downloadContents.FilePath, "application/vnd.android.package-archive", serveName);
+            return PhysicalFile(result.FilePath, "application/vnd.android.package-archive", result.ServeName);
         }
     }
 }
