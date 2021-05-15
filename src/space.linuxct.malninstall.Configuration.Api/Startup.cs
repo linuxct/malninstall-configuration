@@ -14,8 +14,10 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
-using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services;
-using space.linuxct.malninstall.Configuration.Core.Application.Services;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.ControllerLogic;
+using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.PackageGenerationLogic;
+using space.linuxct.malninstall.Configuration.Core.Application.Services.ControllerLogic;
+using space.linuxct.malninstall.Configuration.Core.Application.Services.PackageGenerationLogic;
 
 namespace space.linuxct.malninstall.Configuration
 {
@@ -96,6 +98,9 @@ namespace space.linuxct.malninstall.Configuration
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IPackageGenerationService, PackageGenerationService>();
+            services.AddScoped<IConfigurationLogicService, ConfigurationLogicService>();
+            services.AddScoped<IDownloadLogicService, DownloadLogicService>();
+            services.AddScoped<IPackageCreatorLogicService, PackageCreatorLogicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
