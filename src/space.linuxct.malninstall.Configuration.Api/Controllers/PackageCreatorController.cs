@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using space.linuxct.malninstall.Configuration.Common.Enums;
 using space.linuxct.malninstall.Configuration.Common.Extensions;

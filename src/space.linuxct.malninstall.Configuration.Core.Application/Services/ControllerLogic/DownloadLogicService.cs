@@ -1,7 +1,6 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using space.linuxct.malninstall.Configuration.Common.Extensions;

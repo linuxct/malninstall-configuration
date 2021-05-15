@@ -13,12 +13,10 @@ namespace space.linuxct.malninstall.Configuration.ViewModels.PackageCreator
 
         public GeneratePackageResponse Unflatten(PackageGenerationResult result)
         {
-            return new()
-            {
-                DownloadUrl = result.DownloadUrl,
-                FileName = result.FileName,
-                GenerationStatusCode = result.ServeStatus
-            };
+            DownloadUrl = result.DownloadUrl;
+            FileName = result.FileName;
+            GenerationStatusCode = result.ServeStatus;
+            return this;
         }
     }
 }

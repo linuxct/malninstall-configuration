@@ -28,7 +28,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         {
             if (!_downloadService.RequestIsValid(guid))
             {
-                return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
+                return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) 
+                    { StatusCode = StatusCodes.Status412PreconditionFailed };
             }
 
             var result = _downloadService.GetStoredFileDataForGuid(guid);
