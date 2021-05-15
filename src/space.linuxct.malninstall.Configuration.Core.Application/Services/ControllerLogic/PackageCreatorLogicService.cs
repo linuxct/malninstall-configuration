@@ -110,8 +110,8 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Services.Cont
 
                     //Finalize setting up the result object
                     result.ServeStatus = PackageServeStatus.Ready;
-                    result.DownloadUrl = _linkGenerator.GetUriByPage(_contextAccessor.HttpContext,
-                        "/Download/GetTool", null, new {guid = downloadKey});
+                    result.DownloadUrl = _linkGenerator.GetPathByAction("GetTool", 
+                        "Download", new {guid = downloadKey});
                     result.FileName = packageDetails.ApplicationName;
                     break;
                 }
