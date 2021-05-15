@@ -26,7 +26,6 @@ namespace space.linuxct.malninstall.Configuration.Controllers
         [ProducesResponseType(typeof(BasicResponse),StatusCodes.Status412PreconditionFailed)] //Error GuidNotFound
         public IActionResult GetTool(string guid)
         {
-
             if (!_downloadService.RequestIsValid(guid))
             {
                 return new JsonResult(new BasicResponse { Message = "The requested file was not found." }) { StatusCode = StatusCodes.Status412PreconditionFailed };
