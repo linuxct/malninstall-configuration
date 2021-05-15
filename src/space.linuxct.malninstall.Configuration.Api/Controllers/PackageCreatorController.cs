@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -8,15 +6,9 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using space.linuxct.malninstall.Configuration.Common.Enums;
-using space.linuxct.malninstall.Configuration.Common.Exceptions;
 using space.linuxct.malninstall.Configuration.Common.Extensions;
-using space.linuxct.malninstall.Configuration.Common.Helpers.Hcaptcha;
-using space.linuxct.malninstall.Configuration.Common.Helpers.SafetyNet;
-using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.Common.Models.SafetyNet;
 using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.ControllerLogic;
-using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Services.PackageGenerationLogic;
-using space.linuxct.malninstall.Configuration.Core.Application.Services.ControllerLogic;
 using space.linuxct.malninstall.Configuration.ViewModels.Common;
 using space.linuxct.malninstall.Configuration.ViewModels.PackageCreator;
 
@@ -28,15 +20,10 @@ namespace space.linuxct.malninstall.Configuration.Controllers
     {
         private readonly ILogger<PackageCreatorController> _logger;
         private readonly IPackageCreatorLogicService _packageCreatorService;
-        private readonly IDistributedCache _distributedCache;
-        private readonly IConfiguration _configuration;
 
-        public PackageCreatorController(ILogger<PackageCreatorController> logger, IDistributedCache distributedCache,
-            IConfiguration configuration, IPackageCreatorLogicService packageCreatorService)
+        public PackageCreatorController(ILogger<PackageCreatorController> logger, IPackageCreatorLogicService packageCreatorService)
         {
             _logger = logger;
-            _configuration = configuration;
-            _distributedCache = distributedCache;
             _packageCreatorService = packageCreatorService;
         }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 using space.linuxct.malninstall.Configuration.Common.Extensions;
 using space.linuxct.malninstall.Configuration.Common.Models.Persistence;
 using space.linuxct.malninstall.Configuration.Core.Application.Contracts.Models;
@@ -14,11 +15,13 @@ namespace space.linuxct.malninstall.Configuration.Core.Application.Services.Cont
     {
         private readonly IDistributedCache _distributedCache;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ILogger<DownloadLogicService> _logger;
         
-        public DownloadLogicService(IDistributedCache distributedCache, IHttpContextAccessor contextAccessor)
+        public DownloadLogicService(IDistributedCache distributedCache, IHttpContextAccessor contextAccessor, ILogger<DownloadLogicService> logger)
         {
             _distributedCache = distributedCache;
             _contextAccessor = contextAccessor;
+            _logger = logger;
         }
         public bool RequestIsValid(string guid)
         {
