@@ -85,7 +85,8 @@ namespace space.linuxct.malninstall.Configuration.Controllers
             //Process generation result
             return result.ServeStatus == PackageServeStatus.Ready ? 
                 new JsonResult(new GeneratePackageResponse().Unflatten(result)) : 
-                new JsonResult(new BasicResponse {Message = "The package was not generated, please try again."}) {StatusCode = StatusCodes.Status500InternalServerError};
+                new JsonResult(new BasicResponse {Message = "The package was not generated, please try again."}) 
+                    {StatusCode = StatusCodes.Status500InternalServerError};
         }
 
         [HttpGet]
